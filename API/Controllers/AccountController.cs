@@ -46,7 +46,7 @@ namespace API.Controllers
             };             
         }
 
-        [HttpGet("login")]
+        [HttpPost("login")]
         public async Task<ActionResult<UserDto>> LoginUser(LoginDto logindto)
         {
 
