@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { User } from '../_models/User';
 import { AccountService } from '../_services/account.service';
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
   model: any = {};
   currentUser$ : Observable<User | null> = of(null);
 
-  constructor(public accountservice: AccountService) {
+  constructor(public accountservice: AccountService, private toastr : ToastrService) {
 
   }
 
@@ -23,7 +24,7 @@ export class NavbarComponent implements OnInit {
   getCurrentUser(){
     this.accountservice.currentUser$.subscribe({
       next: user => !! user,
-      error : error => console.log(error)
+      error : error => this.toastr.error(error.error)
     })
   }
 
@@ -33,7 +34,7 @@ export class NavbarComponent implements OnInit {
         console.log(response);
       },
       error: error => {
-        console.log(error);
+        this.toastr.error(error.error)
       }
 
     });
